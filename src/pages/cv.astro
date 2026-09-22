@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const root = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+<BaseLayout title="CV | Zhuoyuan Li">
+  <article class="cv">
+    <h1 class="cv-name">Zhuoyuan Li</h1>
+    <div class="inline-links cv-links"><span>West Lafayette, IN</span><a href="mailto:li5917@purdue.edu">li5917@purdue.edu</a><a href="https://github.com/zhuoyl03">github.com/zhuoyl03</a></div>
+    <a class="download" href={root + "resume.pdf"}>Download PDF</a>
+    <section><h2>Education</h2>
+      <h3>Purdue University, West Lafayette</h3>
+      <p>B.S. in Computer Science, expected May 2027 · August 2025–present</p>
+      <p>GPA: 3.88/4.00 (through Summer 2026). Dean's List and Semester Honors, Fall 2025 and Spring 2026.</p>
+      <h3>Rensselaer Polytechnic Institute</h3>
+      <p>Computer Science · August 2023–May 2025</p>
+      <p>GPA: 3.77/4.00. Dean's Honor List: Spring 2024, Fall 2024, Spring 2025.</p>
+    </section>
+    <section><h2>Publication</h2>
+      <h3>LEO Satellite Network Resilience Analysis: A Focus on Critical Satellites</h3>
+      <p><strong>Zhuoyuan Li*</strong>, Wenyi (Morty) Zhang*, Wenhao Chen, Yiyan Hu, Weyl Lu. * Equal contribution.</p>
+      <p>ACM LEO-NET 2024, co-located with ACM MobiCom. <a href="https://doi.org/10.1145/3697253.3697267">doi:10.1145/3697253.3697267</a></p>
+      <ul><li>Extended Hypatia-based simulations to identify heavily used satellites and evaluate targeted failures in Starlink and Kuiper shells.</li><li>Analyzed satellite usage redistribution and RTT changes after removing selected satellites and recomputing city-pair paths.</li></ul>
+    </section>
+    <section><h2>Research</h2>
+      <h3>Testing the Transferability of Critical-Satellite Rankings in LEO Networks</h3>
+      <p class="meta">Zhuoyuan Li · Manuscript, 2026 · <a href={root + "papers/ranking-transfer-2026.pdf"}>PDF</a></p>
+      <ul><li>Built a paired-deletion pipeline to compare damage-based rankings across routing policies, using a common satellite universe and matched traffic flows.</li><li>Evaluated transfer across 24 orbital phases and multiple ECMP hashes; identified a confirmed peak-link-stress transfer loss from utilization-aware routing to IGP-ECMP.</li><li>Tested traffic-based prediction and topology expansion as explanations or mitigation; retained their negative results and narrowed the claim accordingly.</li></ul>
+      <h3>CLIP Adaptation for Disaster-Response Classification <span class="meta">· Purdue VIP AI4SMA, Spring 2026</span></h3>
+      <ul><li>Analyzed cross-modal label inconsistency in CrisisMMD; implemented agreement-based filtering and consolidated eight humanitarian categories into five.</li><li>Compared head-only training, LoRA, and full fine-tuning of CLIP ViT-B/32 on agreed-only data splits.</li><li>Head-only training achieved 93.2% accuracy / 92.2% macro-F1 on binary Task 1 and 89.3% / 83.9% on the consolidated five-class Task 2.</li></ul>
+    </section>
+    <section><h2>Selected Engineering Work</h2>
+      <h3>Credit Card Fraud Detection Pipeline <a href="https://github.com/zhuoyl03/credit-mlops">[Code]</a></h3>
+      <ul><li>Built XGBoost training with chronological data splits, FastAPI batch scoring, and request/latency monitoring; implemented PSI drift checks for transaction amounts and model scores.</li></ul>
+    </section>
+    <section><h2>Technical Skills</h2>
+      <p>Python, C++, C, Java, R, MATLAB · NumPy, Pandas, scikit-learn, XGBoost, FastAPI · Git, Linux, Conda</p>
+      <p>Network simulation, graph-based failure analysis, multimodal classification, model adaptation, evaluation under class imbalance</p>
+    </section>
+  </article>
+</BaseLayout>

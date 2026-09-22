@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const root = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+<BaseLayout title="Critical-Satellite Ranking Transfer | Zhuoyuan Li">
+  <article class="detail">
+    <a class="back-link" href={root + "#routing"}>Back to research</a>
+    <h1>Testing the Transferability of Critical-Satellite Rankings in LEO Networks</h1>
+    <p class="byline">Zhuoyuan Li · Manuscript, 2026</p>
+    <div class="inline-links"><a href={root + "papers/ranking-transfer-2026.pdf"}>Manuscript PDF</a></div>
+    <section><h2>Testing the reuse of a failure ranking</h2>
+      <p>Two satellite rankings can have little overlap yet capture similar failure damage. This paper evaluates the cost of reusing a list directly: remove satellites individually, reroute the same flows, and compare the source policy's list with the target policy's own damage-ranked list.</p>
+      <p>I developed the common policy-dependency universe, paired-flow comparison, and Damage Capture / Transfer Regret evaluation. Reachability, propagation, rerouting, and peak-link-stress damage remain separate outcomes, with explicit handling of ties and zero-damage cases.</p>
+    </section>
+    <figure><a href={root + "figures/routing-manuscript-fig1.png"}><img src={root + "figures/routing-manuscript-fig1.png"} alt="Short-window peak-stress Transfer Regret at K=20, with source policies in rows and evaluation policies in columns." width="1036" height="736" /></a><figcaption>Figure 1. Short-window peak-link-stress ranking transfer. Rows select the list; columns evaluate it. Counts show observations with defined regret.</figcaption></figure>
+    <section><h2>What transfers, and what does not</h2>
+      <p>For propagation damage, shortest-distance and hop-count rankings transfer well in the diagnostic experiment. The confirmed transfer loss concerns a different outcome: utilization-aware rankings transfer poorly to IGP-ECMP for peak-link-stress damage.</p>
+      <p>Across 24 sampled orbital phases, that direction has median top-20 Transfer Regret of 0.248, with a traffic-cluster bootstrap interval of [0.150, 0.333], and meets the six-phase, three-hash confirmation criterion. The corresponding shortest-distance direction does not meet that confirmation.</p>
+      <figure><a href={root + "figures/routing-manuscript-fig2.png"}><img src={root + "figures/routing-manuscript-fig2.png"} alt="Phase-wise transfer regret for utilization-aware rankings evaluated under shortest-distance and IGP-ECMP routing, with a dashed 0.20 threshold." width="1036" height="1000" loading="lazy" /></a><figcaption>Figure 2. Hash-0 phase-wise medians. Each point is an independently warmed snapshot, not a continuously evolving control-plane simulation. The separate hash-confirmation results appear in Table II of the manuscript.</figcaption></figure>
+    </section>
+    <section><h2>Testing possible explanations</h2>
+      <p>Two further experiments test whether pre-deletion traffic features predict transfer loss and whether expanding inter-satellite links and ground access mitigates it. Neither meets its locked success criterion. The manuscript retains these results rather than presenting an unverified general mechanism.</p>
+      <p class="scope">These conclusions concern graph-level failure effects under synthetic traffic and uniform capacity. They do not establish operational latency, a universal instability of critical-satellite rankings, or an improvement from deploying utilization-aware routing.</p>
+    </section>
+  </article>
+</BaseLayout>

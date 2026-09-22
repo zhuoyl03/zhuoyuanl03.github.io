@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { showVipReportFigure } from "../../data/publishing";
+const root = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+<BaseLayout title="CLIP Adaptation for Disaster Response | Zhuoyuan Li">
+  <article class="detail">
+    <a class="back-link" href={root + "#multimodal"}>Back to research</a>
+    <h1>CLIP adaptation for disaster-response classification</h1>
+    <p class="byline">Purdue VIP AI4SMA · Spring 2026<br />Team: Yubeen Oh, Zhuoyuan Li, Akhilesh Tuttagunta, and Logan Fossum</p>
+    <section><h2>Start with the labels</h2>
+      <p>CrisisMMD pairs disaster-related social-media text and images, but the text-specific and image-specific labels do not always agree. Training against a single target can obscure that disagreement. I examined the annotation inconsistencies, retained samples with matching modality labels, and consolidated the eight humanitarian categories into five.</p>
+      <p>My contribution was the label analysis, agreement-based filtering, label consolidation, and comparison of CLIP adaptation strategies. The team's report also covers other classification pipelines; those are separate from my adaptation study.</p>
+    </section>
+    <section><h2>How much adaptation helps?</h2>
+      <p>Using CLIP ViT-B/32, I compared a frozen backbone with a trained classifier head, LoRA adapters with a trained head, and full fine-tuning. Each method was evaluated on the agreed-only data splits using accuracy, weighted F1, and macro-F1.</p>
+      {showVipReportFigure && <figure><a href={root + "figures/clip-task2-fig27.png"}><img src={root + "figures/clip-task2-fig27.png"} alt="Original report Figure 27 comparing head-only, LoRA, and full fine-tuning on the agreed-only five-class Task 2." width="1985" height="1170" /></a><figcaption>Figure 27 from the Spring 2026 team report, <em>Multi-modal Model for Informative Disaster Response Classification</em>: the five-class humanitarian task after agreement-based filtering.</figcaption></figure>}
+      <div class="table-wrap"><table><caption>Task 2: agreed-only, consolidated five-class test set</caption><thead><tr><th>Adaptation</th><th>Accuracy</th><th>Macro-F1</th></tr></thead><tbody><tr><td>Head-only</td><td>89.3%</td><td>83.9%</td></tr><tr><td>LoRA</td><td>88.8%</td><td>70.9%</td></tr><tr><td>Full fine-tuning</td><td>88.7%</td><td>79.7%</td></tr></tbody></table></div>
+      <p>Head-only training gave the strongest result in this comparison. The accuracy differences were small, but macro-F1 exposed larger differences across the humanitarian categories. For the binary informativeness task, head-only training achieved 93.2% accuracy and 92.2% macro-F1.</p>
+    </section>
+    <section><h2>Interpreting the comparison</h2>
+      <p class="scope">Agreement filtering changes which examples are evaluated, and label consolidation changes the task itself. These numbers should not be compared directly with results on the unfiltered eight-class CrisisMMD benchmark. They describe the reported runs, not a statistical claim that freezing CLIP is always better than fine-tuning.</p>
+      <p>The useful lesson from these experiments is to examine the data and per-class behavior before assuming that updating more of the model will help.</p>
+    </section>
+  </article>
+</BaseLayout>

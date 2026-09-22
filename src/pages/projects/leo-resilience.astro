@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const root = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+<BaseLayout title="LEO Satellite Network Resilience | Zhuoyuan Li">
+  <article class="detail">
+    <a class="back-link" href={root + "#leo-paper"}>Back to research</a>
+    <h1>LEO Satellite Network Resilience Analysis: A Focus on Critical Satellites</h1>
+    <p class="byline"><strong>Zhuoyuan Li*</strong>, Wenyi (Morty) Zhang*, Wenhao Chen, Yiyan Hu, Weyl Lu<br />* Equal contribution</p>
+    <p>2nd International Workshop on LEO Networking and Communication (LEO-NET 2024), co-located with ACM MobiCom 2024.</p>
+    <div class="inline-links"><a href={root + "papers/leo-net-2024.pdf"}>Paper</a><a href="https://doi.org/10.1145/3697253.3697267">DOI</a><a href="https://github.com/zhuoyl03/LEO-Satellite-Network-Resilience-Analysis-A-Focus-on-Critical-Satellites">Code</a></div>
+    <section><h2>Why these satellites?</h2>
+      <p>A satellite need not connect to many ground stations to carry a large share of intercontinental paths. In our simulations, traffic between northern-hemisphere cities often passes through satellites over high-latitude oceans, near the edge of the constellation's coverage.</p>
+      <p>We studied this effect in Starlink Shell 1 and Kuiper Shell 3 using the 100 most populous cities as ground stations. The experiments use Hypatia-based network snapshots over 200 seconds, with a one-second time step and shortest-geographical-path routing.</p>
+    </section>
+    <figure><a href={root + "figures/leo-paper-fig3.png"}><img src={root + "figures/leo-paper-fig3.png"} alt="Figure 3: satellite usage and ground-station locations in Starlink Shell 1." width="950" height="510" /></a><figcaption>Figure 3 from the paper. Larger red markers indicate satellites that appear on more city-pair paths; blue markers indicate ground stations.</figcaption></figure>
+    <section><h2>My work</h2>
+      <p>As a co-first author, I extended the Hypatia simulation and analysis pipeline to identify heavily used satellites and evaluate targeted disconnection scenarios. This involved constructing network snapshots, removing selected satellites, recomputing paths, and analyzing RTT and changes in satellite usage.</p>
+    </section>
+    <section><h2>What we observed</h2>
+      <p>Removing heavily used satellites shifts traffic onto surviving satellites. The redistribution is not confined to the failure's immediate neighborhood: distant satellites can become heavily used when intercontinental paths change. The RTT distributions also develop longer tails as more satellites are removed.</p>
+      <figure><a href={root + "figures/leo-paper-fig6.png"}><img src={root + "figures/leo-paper-fig6.png"} alt="Figure 6: empirical cumulative distributions of maximum RTT and geodesic slowdown under satellite removals." width="1491" height="279" loading="lazy" /></a><figcaption>Figure 6 from the paper. Maximum RTT and geodesic slowdown under targeted satellite removals in the two simulated shells.</figcaption></figure>
+    </section>
+    <section><h2>Scope and follow-up</h2>
+      <p class="scope">These are single-shell simulations with idealized transmission and shortest-path routing, not measurements of operational Starlink or Kuiper service. The RTT analysis does not model packet loss or queueing congestion.</p>
+      <p>The study led me to a further question: if the routing policy changes, do the same satellites remain critical? My <a href={root + "projects/routing-induced-criticality/"}>ongoing work</a> measures criticality through actual simulated deletion damage rather than treating high traffic load as sufficient evidence.</p>
+    </section>
+  </article>
+</BaseLayout>

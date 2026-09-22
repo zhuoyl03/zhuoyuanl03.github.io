@@ -1,0 +1,16 @@
+{
+  "name": "zhuoyuanl03-research-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@lucide/astro": "^1.47.0",
+    "astro": "^5.13.0"
+  },
+  "packageManager": "pnpm@11.19.0"
+}

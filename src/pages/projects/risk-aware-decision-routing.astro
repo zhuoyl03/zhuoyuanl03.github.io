@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const root = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const repo = "https://github.com/zhuoyl03/Risk-Aware-Decision-Routing";
+---
+<BaseLayout title="Risk-Aware Decision Routing | Zhuoyuan Li" description="A research project on allocating limited review capacity: comparing uncertainty, average error cost, and tail-risk routing for disaster images.">
+  <article class="detail">
+    <a class="back-link" href={root + "#risk-aware-routing"}>Back to research</a>
+    <h1>Risk-Aware Decision Routing under Limited Review Capacity</h1>
+    <p class="byline">Zhuoyuan Li &middot; Research project, 2026</p>
+    <div class="inline-links">
+      <a href={repo}>Code</a>
+      <a href={repo + "/blob/main/reports/results.md"}>Experiment report</a>
+      <a href={repo + "/blob/main/docs/method.md"}>Method</a>
+    </div>
+
+    <section>
+      <h2>Which cases should receive review?</h2>
+      <p>When only some predictions can be reviewed, uncertainty and the consequences of an error are different priorities. I study this distinction on disaster-image informativeness classification, using damage-severity annotations to assign different costs to mistakes.</p>
+      <p>I built a batch-routing pipeline around a fixed ViT backbone and three prediction heads. A small mixture model estimates a loss distribution for each model action. The router chooses a model and allocates the review budget using either expected cost or conditional tail risk (CVaR), compared with an entropy-based baseline. True severity labels are never available to the router at inference.</p>
+    </section>
+
+    <figure>
+      <a href={root + "figures/radr-risk-coverage.png"} aria-label="View the review-budget experiment curves at full size"><img src={root + "figures/radr-risk-coverage.png"} alt="Two panels compare weighted error cost and severe errors across review budgets from zero to 40 percent. At 20 percent review, tail-risk routing leaves fewer severe errors but has higher weighted cost than entropy routing." width="2180" height="848" /></a>
+      <figcaption>Unresolved weighted error per image (left) and severe errors left unreviewed (right), on 15,634 deduplicated test images. Bands show one standard deviation over three router seeds, with one fixed backbone and simulated perfect review. Original figure from the experiment report.</figcaption>
+    </figure>
+
+    <section>
+      <h2>A tradeoff at the same review budget</h2>
+      <p>Each policy sends 3,126 of 15,634 images for review, approximately 20%. Values below are means over router seeds 17, 42, and 73. Lower is better for both outcomes.</p>
+      <div class="table-wrap" role="region" aria-label="Results at 20 percent review capacity" tabindex="0">
+        <table>
+          <thead><tr><th scope="col">Policy</th><th scope="col">Weighted error / image</th><th scope="col">Severe errors remaining</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Entropy baseline</th><td>0.0614</td><td>37.0</td></tr>
+            <tr><th scope="row">Mixture / mean risk</th><td>0.0652</td><td>29.7</td></tr>
+            <tr><th scope="row">Mixture / tail risk</th><td>0.0828</td><td>24.3</td></tr>
+            <tr><th scope="row">Guarded fallback</th><td>0.0614</td><td>37.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Tail-risk routing leaves about 34% fewer severe errors than entropy routing, but increases aggregate weighted error cost by about 35%. It changes which mistakes remain; it does not improve both objectives.</p>
+    </section>
+
+    <section>
+      <h2>When to keep the baseline</h2>
+      <p>I separated router fitting, policy selection, and an adoption check within the development data. The selection stage chose mean-risk weighting in all three runs. On a separate guard subset, paired bootstrap comparisons did not support switching from entropy in any run, so the implemented fallback retains it. A review budget outside the checked 20% setting also falls back to entropy.</p>
+      <p>The evaluation includes simpler routing baselines, exact-image deduplication, and paired blur and JPEG checks on 3,000 images. The code includes tests for risk calculations, review-budget allocation, and fallback behavior.</p>
+    </section>
+
+    <section>
+      <h2>Evaluation scope</h2>
+      <p class="scope">This is an exploratory offline study. Review is simulated as perfect in the main results, and severity costs of 1, 3, and 8 are illustrative rather than measured real-world harms. All prediction heads run before routing, so these experiments do not demonstrate inference-cost savings.</p>
+      <p class="scope">The backbone was selected using the original development split, and historical test results had already been inspected. The adoption check was added after an initial experiment; it is not a blind final evaluation or a safety guarantee. A stronger test would use fresh event-held-out data and observed reviewer outcomes.</p>
+    </section>
+  </article>
+</BaseLayout>

@@ -1,0 +1,11 @@
+node_modules/
+.astro/
+dist/
+.env
+.env.*
+!.env.example
+backup*/
+src-before-*/
+legacy/
+CONTENT_SOURCES.md
+**/*Zone.Identifier*

@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { showVipReportFigure } from "../data/publishing";
+const root = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+<BaseLayout title="Zhuoyuan Li" description="Zhuoyuan Li is a Computer Science undergraduate at Purdue University interested in reliable systems.">
+  <section class="intro" id="about">
+    <h1>Zhuoyuan Li</h1>
+    <p>I am a Computer Science undergraduate at Purdue University.</p>
+    <p>I am interested in <strong>reliable systems</strong>, particularly how networks and machine learning models behave under failures, changing conditions, and imperfect data.</p>
+    <div class="inline-links contact-links">
+      <a href="mailto:li5917@purdue.edu">li5917@purdue.edu</a>
+      <a href="https://github.com/zhuoyl03">GitHub</a>
+      <a href={root + "cv/"}>CV</a>
+    </div>
+  </section>
+
+  <section class="section" id="research">
+    <h2>Research</h2>
+    <article class="research-entry" id="routing">
+      <figure>
+        <a href={root + "figures/routing-manuscript-fig1.png"} aria-label="View the manuscript's ranking-transfer figure at full size"><img src={root + "figures/routing-manuscript-fig1.png"} alt="Figure 1 from the manuscript: peak-link-stress ranking transfer between shortest-distance, IGP-ECMP, and utilization-aware routing." width="1036" height="736" /></a>
+        <figcaption>Failure-ranking transfer across routing policies.<br />Figure 1 from the manuscript.</figcaption>
+      </figure>
+      <div>
+        <h3><a href={root + "projects/routing-induced-criticality/"}>Testing the Transferability of Critical-Satellite Rankings in LEO Networks</a></h3>
+        <p class="authors"><strong>Zhuoyuan Li</strong></p>
+        <p class="venue">Manuscript · 2026</p>
+        <p>Can a failure ranking be reused after the routing policy changes? I built a controlled evaluation that removes satellites individually and measures how much target-policy damage a reused ranking captures, rather than relying on ranking overlap alone.</p>
+        <p>Tests across 24 orbital phases identify a specific transfer loss from utilization-aware routing to IGP-ECMP for peak-link-stress damage. Shortest-distance and hop-count rankings, in contrast, transfer well for propagation damage.</p>
+        <div class="inline-links">
+          <a href={root + "papers/ranking-transfer-2026.pdf"}>Manuscript PDF</a>
+          <a href={root + "projects/routing-induced-criticality/"}>Details</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="research-entry" id="leo-paper">
+      <figure>
+        <a href={root + "figures/leo-paper-fig3.png"} aria-label="View the satellite usage figure at full size"><img src={root + "figures/leo-paper-fig3.png"} alt="Published map of Starlink Shell 1: red satellite markers vary in size with usage; blue markers show ground stations." width="950" height="510" loading="lazy" /></a>
+        <figcaption>Satellite usage and ground stations.<br />Figure 3 from the LEO-NET paper.</figcaption>
+      </figure>
+      <div>
+        <h3><a href={root + "projects/leo-resilience/"}>LEO Satellite Network Resilience Analysis: A Focus on Critical Satellites</a></h3>
+        <p class="authors"><strong>Zhuoyuan Li*</strong>, Wenyi (Morty) Zhang*, Wenhao Chen, Yiyan Hu, Weyl Lu</p>
+        <p class="venue">ACM LEO-NET 2024 <span>· * Equal contribution</span></p>
+        <p>Some heavily used satellites lie over high-latitude oceans, far from dense ground-station regions. Our Starlink- and Kuiper-shell simulations show how their removal redistributes traffic and increases end-to-end delay.</p>
+        <p>As a co-first author, I extended the Hypatia-based simulation and analysis pipeline for satellite selection, targeted failures, path recomputation, and RTT analysis.</p>
+        <div class="inline-links">
+          <a href={root + "papers/leo-net-2024.pdf"}>Paper PDF</a>
+          <a href="https://doi.org/10.1145/3697253.3697267">DOI</a>
+          <a href="https://github.com/zhuoyl03/LEO-Satellite-Network-Resilience-Analysis-A-Focus-on-Critical-Satellites">Code</a>
+          <a href={root + "projects/leo-resilience/"}>Details</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="research-entry" id="risk-aware-routing">
+      <figure>
+        <a href={root + "figures/radr-risk-coverage.png"} aria-label="View the review-budget experiment curves at full size"><img src={root + "figures/radr-risk-coverage.png"} alt="Review-budget curves comparing weighted error cost and severe errors left unreviewed. Tail-risk routing reduces severe errors but has higher weighted cost than entropy routing." width="2180" height="848" loading="lazy" /></a>
+        <figcaption>Review capacity, weighted error, and severe errors.<br />Three router seeds; simulated perfect review.</figcaption>
+      </figure>
+      <div>
+        <h3><a href={root + "projects/risk-aware-decision-routing/"}>Risk-Aware Decision Routing under Limited Review Capacity</a></h3>
+        <p class="authors"><strong>Zhuoyuan Li</strong></p>
+        <p class="venue">Research project · 2026</p>
+        <p>I built a system that allocates a fixed review budget across disaster images, comparing uncertainty-based routing with learned estimates of average and tail error costs.</p>
+        <p>At 20% simulated review capacity, tail-risk routing left <strong>34% fewer severe errors</strong> but incurred <strong>35% higher weighted error cost</strong> than entropy routing. A separate adoption check did not support a switch, so the system retains the entropy baseline.</p>
+        <div class="inline-links">
+          <a href="https://github.com/zhuoyl03/Risk-Aware-Decision-Routing">Code</a>
+          <a href="https://github.com/zhuoyl03/Risk-Aware-Decision-Routing/blob/main/reports/results.md">Experiment report</a>
+          <a href={root + "projects/risk-aware-decision-routing/"}>Methods &amp; results</a>
+        </div>
+      </div>
+    </article>
+
+    <article class:list={["research-entry", { "text-only": !showVipReportFigure }]} id="multimodal">
+      {showVipReportFigure && <figure>
+        <a href={root + "figures/clip-task2-fig27.png"} aria-label="View the CLIP adaptation comparison at full size"><img src={root + "figures/clip-task2-fig27.png"} alt="Figure 27 from the VIP report comparing three CLIP adaptation strategies on the agreed-only, five-class CrisisMMD task." width="1985" height="1170" loading="lazy" /></a>
+        <figcaption>CLIP adaptation on the humanitarian task.<br />Figure 27 from the Spring 2026 VIP report.</figcaption>
+      </figure>}
+      <div>
+        <h3><a href={root + "projects/disaster-response/"}>CLIP adaptation for disaster-response classification</a></h3>
+        <p class="venue">Purdue VIP AI4SMA · Spring 2026</p>
+        <p class="authors">With Yubeen Oh, Akhilesh Tuttagunta, and Logan Fossum</p>
+        <p>I investigated inconsistent image-text labels in CrisisMMD, implemented agreement-based filtering, and consolidated eight humanitarian categories into five. On this filtered task, head-only CLIP training reached <strong>83.9% macro-F1</strong>, compared with 70.9% for LoRA and 79.7% for full fine-tuning.</p>
+        <div class="inline-links"><a href={root + "projects/disaster-response/"}>Contribution &amp; results</a></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="section education" id="education">
+    <h2>Education</h2>
+    <div class="education-row"><div><h3>Purdue University</h3><p>B.S. in Computer Science, expected May 2027</p></div><span>2025–present</span></div>
+    <div class="education-row"><div><h3>Rensselaer Polytechnic Institute</h3><p>Computer Science</p></div><span>2023–2025</span></div>
+  </section>
+</BaseLayout>
